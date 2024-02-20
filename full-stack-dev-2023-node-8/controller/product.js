@@ -3,7 +3,7 @@ const model = require('../model/product')
 const mongoose = require('mongoose');
 const Product = model.Product;
 
-// Create
+  // Create
 exports.createProduct = (req, res) => {
   const product = new Product(req.body);
   product.save((err,doc)=>{
@@ -14,8 +14,6 @@ exports.createProduct = (req, res) => {
       res.status(201).json(doc);
     }
   })
-
-  
 };
 
 exports.getAllProducts = async (req, res) => {
@@ -29,6 +27,7 @@ exports.getProduct = async (req, res) => {
   const product = await Product.findById(id);
   res.json(product);
 };
+
 exports.replaceProduct = async (req, res) => {
   const id = req.params.id;
   try{
@@ -40,6 +39,7 @@ exports.replaceProduct = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
 exports.updateProduct = async (req, res) => {
   const id = req.params.id;
   try{
@@ -51,6 +51,7 @@ exports.updateProduct = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
 exports.deleteProduct = async (req, res) => {
   const id = req.params.id;
   try{

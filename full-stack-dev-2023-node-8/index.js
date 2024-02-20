@@ -22,23 +22,34 @@ async function main() {
   console.log('database connected');
 }
 
-  // Middleware setup
+            // Middleware setup
   // Enable Cross-Origin Resource Sharing
 server.use(cors()); 
   // Parse JSON request bodies
 server.use(express.json()); 
   // Logger function - Log HTTP requests
 server.use(morgan('default')); 
-  // Serve static files
+
+  // Serve static files.. build code of react app
 server.use(express.static(path.resolve(__dirname, process.env.PUBLIC_DIR))); 
   // Route requests starting with /products to productRouter
 server.use('/products', productRouter.router); 
   // Route requests starting with /users to userRouter
 server.use('/users', userRouter.router); 
 
-  // Route for handling all other requests
+  // Route for handling "ALL" other requests
 server.use('*', (req, res) => {
   // Send the index.html file for any other request
+  // path is not really required but using it is a good practice, so it works on all windows and mac devices
+  // __dirname is the of current directory
+
+  /**
+   * The routes that could not be resolved by the backend like "/add"
+   * for those pages backend will say "can't get /add"
+   * so those routes will be handled by this function 
+   * this function will check those paths in the frontend (react app)
+   */
+
   res.sendFile(path.resolve(__dirname, 'build', 'index.html'));  
 });
 
